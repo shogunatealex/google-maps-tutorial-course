@@ -1,0 +1,42 @@
+[
+  {
+    "position":
+      {
+        "lat": 34.754313,
+        "lng": 135.414278
+      },
+    "title": "Tsukaguchi Supermarket",
+    "category": "shopping",
+    "description": "A supermarket 5 minutes away from the station A supermarket 5 minutes away from the station A supermarket 5 minutes away from the station A supermarket 5 minutes away from the station A supermarket 5 minutes away from the stationA supermarket 5 minutes away from the stationA supermarket 5 minutes away from the station  v A supermarket 5 minutes away from the station A supermarket 5 minutes away from the station A supermarket 5 minutes away from the station A supermarket 5 minutes away from the station"
+  },
+  {
+    "position":
+      {
+        "lat": 34.754475,
+        "lng": 135.417822
+      },
+    "title": "Tsukaguchi Temple",
+    "category": "religion",
+    "description": "A local temple near the station"
+  },
+  {
+    "position":
+      {
+        "lat": 34.755529,
+        "lng": 135.416289
+      },
+    "title": "Tsukaguchi Park",
+    "category": "park",
+    "description": "A local park situated near the station."
+  },
+  {
+    "position":
+      {
+        "lat": 34.752243,
+        "lng": 135.416477
+      },
+    "title": "Daiei",
+    "category": "shopping",
+    "description": "A supermarket located adjacent to the station"
+  }
+]

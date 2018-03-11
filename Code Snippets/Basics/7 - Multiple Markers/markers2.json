@@ -1,0 +1,38 @@
+[
+  {
+    "position":
+      {
+        "lat": 34.754313,
+        "lng": 135.414278
+      },
+    "title": "Tsukaguchi Supermarket",
+    "category": "shopping"
+  },
+  {
+    "position":
+      {
+        "lat": 34.754475,
+        "lng": 135.417822
+      },
+    "title": "Tsukaguchi Temple",
+    "category": "religion"
+  },
+  {
+    "position":
+      {
+        "lat": 34.755529,
+        "lng": 135.416289
+      },
+    "title": "Tsukaguchi Park",
+    "category": "park"
+  },
+  {
+    "position":
+      {
+        "lat": 34.752243,
+        "lng": 135.416477
+      },
+    "title": "Daiei",
+    "category": "shopping"
+  }
+]
