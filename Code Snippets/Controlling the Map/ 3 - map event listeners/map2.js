@@ -11,8 +11,13 @@ function initMap() {
       mapOptions =  {
         center: center,
         zoom: zoom,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          mapTypeIds: ['roadmap', 'terrain'],
+          position: google.maps.ControlPosition.TOP_CENTER
+        },
         styles: res.style1
-
       }
       mapStyle1 = new google.maps.StyledMapType(res.style1);
       mapStyle2 = new google.maps.StyledMapType(res.style2);
@@ -61,29 +66,14 @@ function initMap() {
             icon: image,
             description: description
           });
-          tempMarker.addListener('mouseover', function(){
-            this.setAnimation(google.maps.Animation.BOUNCE);
-          })
-          google.maps.event.clearListeners(tempMarker, 'mouseover');
-          tempMarker.addListener('mouseout', function(){
-            this.setAnimation("none");
-          })
-          var listener1 = tempMarker.addListener('click', function(){
+
+          tempMarker.addListener('click', function(){
             var contentString = "<div class='infobox-containter'>" +
               "<p> " + this.description +"</p>" +
               "</div>";
             tempInfoBox.setContent(contentString);
             tempInfoBox.open(map, this);
-            map.panTo(this.getPosition());
           })
-          tempMarker.setOptions({
-            clickListener1: listener1
-          })
-          var listener2 = tempMarker.addListener('click', function(){
-            map.setZoom(4);
-          })
-
-          google.maps.event.removeListener(tempMarker.clickListener1);
 
 
           markerArray.push(tempMarker);
@@ -172,6 +162,12 @@ function initMap() {
             }
           })
         })
+
+
+        map.addListener('dragend',function(e){
+          map.panTo(markerArray[0].getPosition());
+        })
+
 
       })// end get
 

@@ -4,30 +4,19 @@ function initMap() {
   var mapOptions;
   var center = {lat: 34.752746, lng: 135.416201};
   var zoom =  18;
-  var mapStyle1;
-  var mapStyle2;
   $.get("./styles.json",function(res){
-    console.log(res);
       mapOptions =  {
         center: center,
         zoom: zoom,
-        styles: res.style1
-
+        styles: res
       }
-      mapStyle1 = new google.maps.StyledMapType(res.style1);
-      mapStyle2 = new google.maps.StyledMapType(res.style2);
-
-  }).fail(function(x,y,z){
-    console.log(x);
-    console.log(y);
-    console.log(z);
+  }).fail(function(){
     mapOptions =  {
       center: center,
       zoom: zoom
     };
   }).always(function(){
     map = new google.maps.Map($("#map")[0], mapOptions);
-
 
     var tempInfoBox = new google.maps.InfoWindow({maxWidth: 100});
     $.get("./markers.json",function(markRes){
@@ -61,34 +50,46 @@ function initMap() {
             icon: image,
             description: description
           });
-          tempMarker.addListener('mouseover', function(){
-            this.setAnimation(google.maps.Animation.BOUNCE);
-          })
-          google.maps.event.clearListeners(tempMarker, 'mouseover');
-          tempMarker.addListener('mouseout', function(){
-            this.setAnimation("none");
-          })
-          var listener1 = tempMarker.addListener('click', function(){
+
+          tempMarker.addListener('click', function(){
             var contentString = "<div class='infobox-containter'>" +
               "<p> " + this.description +"</p>" +
               "</div>";
             tempInfoBox.setContent(contentString);
             tempInfoBox.open(map, this);
-            map.panTo(this.getPosition());
           })
-          tempMarker.setOptions({
-            clickListener1: listener1
-          })
-          var listener2 = tempMarker.addListener('click', function(){
-            map.setZoom(4);
-          })
-
-          google.maps.event.removeListener(tempMarker.clickListener1);
 
 
           markerArray.push(tempMarker);
         }) // end for
 
+        // var clusterStyles = [
+        //   {
+        //     url: './img/clusterimg/m1.png',
+        //     textColor: 'white',
+        //     height: 64,
+        //     width: 64,
+        //   },
+        //   {
+        //     url: './img/clusterimg/m2.png',
+        //     textColor: 'white',
+        //     height: 64,
+        //     width: 64,
+        //   },
+        //   {
+        //     url: './img/clusterimg/m3.png',
+        //     textColor: 'white',
+        //     height: 64,
+        //     width: 64,
+        //   }
+        // ]
+        //
+        // var clusterOptions = {
+        //   styles: clusterStyles
+        // }
+        //
+        // var markerCluster = new MarkerClusterer(map, markerArray,
+        //   clusterOptions);
         $('.shopping-btn').click(function(){
           $.each(markerArray, function(index,marker){
             if(marker.category == "shopping"){
@@ -162,7 +163,7 @@ function initMap() {
           drawingManager.setOptions({
             drawingMode: null
           })
-
+          
           $.each(markerArray, function(index,marker){
             if(google.maps.geometry.poly.containsLocation(marker.position, currentPoly)){
               marker.setMap(map);
@@ -172,6 +173,7 @@ function initMap() {
             }
           })
         })
+
 
       })// end get
 

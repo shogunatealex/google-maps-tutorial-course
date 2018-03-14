@@ -11,6 +11,10 @@ function initMap() {
       mapOptions =  {
         center: center,
         zoom: zoom,
+        zoomControl: false,
+        minZoom: 18,
+        maxZoom: 18,
+        gestureHandling: "none",
         styles: res.style1
 
       }
@@ -61,29 +65,14 @@ function initMap() {
             icon: image,
             description: description
           });
-          tempMarker.addListener('mouseover', function(){
-            this.setAnimation(google.maps.Animation.BOUNCE);
-          })
-          google.maps.event.clearListeners(tempMarker, 'mouseover');
-          tempMarker.addListener('mouseout', function(){
-            this.setAnimation("none");
-          })
-          var listener1 = tempMarker.addListener('click', function(){
+
+          tempMarker.addListener('click', function(){
             var contentString = "<div class='infobox-containter'>" +
               "<p> " + this.description +"</p>" +
               "</div>";
             tempInfoBox.setContent(contentString);
             tempInfoBox.open(map, this);
-            map.panTo(this.getPosition());
           })
-          tempMarker.setOptions({
-            clickListener1: listener1
-          })
-          var listener2 = tempMarker.addListener('click', function(){
-            map.setZoom(4);
-          })
-
-          google.maps.event.removeListener(tempMarker.clickListener1);
 
 
           markerArray.push(tempMarker);
