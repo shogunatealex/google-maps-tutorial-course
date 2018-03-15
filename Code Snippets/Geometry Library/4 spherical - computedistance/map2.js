@@ -63,19 +63,61 @@ function initMap() {
           })
           markerArray.push(tempMarker);
         }) // end for
-        console.log(google.maps.places);
-        var placeService = new google.maps.places.PlacesService(map);
-        var request = {
-           location:   {lat: 34.754475,
-                        lng: 135.417822},
-           radius: '500',
-           type: ['restaurant']
-         };
-         placeService.nearbySearch(request,function(results, status){
-           console.log(results);
-           console.log(status);
-         })
 
+        console.log(google.maps.drawing);
+        var imageDraw =
+        {
+            url: "./img/online-store.png",
+            scaledSize: new google.maps.Size(60, 60),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(30, 0)
+        }
+
+        var drawingManager = new google.maps.drawing.DrawingManager({
+          circleOptions: {
+            fillColor: "#FFF",
+            fillOpacity: .5,
+            strokeWeight: 5,
+            strokeColor: "#000",
+            strokeOpacity: 1,
+            editable: true,
+            draggable: true,
+            clickable: false
+          },
+          rectangleOptions:{
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+            fillOpacity: 1,
+            fillColor: "#abc"
+          },
+          polylineOptions: {
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+            editable: true,
+            geodesic: true
+          },
+          polygonOptions: {
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+            fillOpacity: 1,
+            fillColor: "#abc",
+            geodesic: true,
+            draggable: true
+          }
+
+        })
+        drawingManager.setMap(map);
+        console.log(google.maps.geometry.spherical);
+        google.maps.event.addListener(drawingManager, 'polylinecomplete', function(polyline){
+          var firstDistance = google.maps.geometry.spherical.computeDistanceBetween(polyline.getPath().getAt(0), polyline.getPath().getAt(1));
+          var totalDistance = google.maps.geometry.spherical.computeLength(polyline.getPath());
+          console.log("Distance between first two points:" + firstDistance);
+          console.log("Total Distance:" + totalDistance);
+
+        })
   });
 })
 }

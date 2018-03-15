@@ -3,7 +3,7 @@ var markerArray = []
 function initMap() {
   var mapOptions;
   var center = {lat: 34.752746, lng: 135.416201};
-  var zoom =  3;
+  var zoom =  18;
   $.get("./styles.json",function(res){
     console.log(res);
       mapOptions =  {
@@ -63,19 +63,52 @@ function initMap() {
           })
           markerArray.push(tempMarker);
         }) // end for
-        console.log(google.maps.places);
-        var placeService = new google.maps.places.PlacesService(map);
-        var request = {
-           location:   {lat: 34.754475,
-                        lng: 135.417822},
-           radius: '500',
-           type: ['restaurant']
-         };
-         placeService.nearbySearch(request,function(results, status){
-           console.log(results);
-           console.log(status);
-         })
 
+        console.log(google.maps.drawing);
+        var imageDraw =
+        {
+            url: "./img/online-store.png",
+            scaledSize: new google.maps.Size(60, 60),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(30, 0)
+        }
+
+        var drawingManager = new google.maps.drawing.DrawingManager({
+          circleOptions: {
+            fillColor: "#FFF",
+            fillOpacity: .5,
+            strokeWeight: 5,
+            strokeColor: "#000",
+            strokeOpacity: 1,
+            editable: true,
+            draggable: true,
+            clickable: false,
+            addCirlce(this);
+          },
+          rectangleOptions:{
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+          },
+          polylineOptions: {
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+          },
+          polygonOptions: {
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+          }
+
+        })
+        drawingManager.setMap(map);
   });
 })
+}
+
+function addCircle (circle){
+  google.maps.event.addListener(circle, 'radius_changed', function() {
+    console.log("here");
+  }
 }

@@ -3,7 +3,7 @@ var markerArray = []
 function initMap() {
   var mapOptions;
   var center = {lat: 34.752746, lng: 135.416201};
-  var zoom =  3;
+  var zoom =  18;
   $.get("./styles.json",function(res){
     console.log(res);
       mapOptions =  {
@@ -63,18 +63,70 @@ function initMap() {
           })
           markerArray.push(tempMarker);
         }) // end for
-        console.log(google.maps.places);
-        var placeService = new google.maps.places.PlacesService(map);
-        var request = {
-           location:   {lat: 34.754475,
-                        lng: 135.417822},
-           radius: '500',
-           type: ['restaurant']
-         };
-         placeService.nearbySearch(request,function(results, status){
-           console.log(results);
-           console.log(status);
-         })
+
+        console.log(google.maps.drawing);
+        var imageDraw =
+        {
+            url: "./img/online-store.png",
+            scaledSize: new google.maps.Size(60, 60),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(30, 0)
+        }
+
+        var drawingManager = new google.maps.drawing.DrawingManager({
+          circleOptions: {
+            fillColor: "#FFF",
+            fillOpacity: .5,
+            strokeWeight: 5,
+            strokeColor: "#000",
+            strokeOpacity: 1,
+            editable: true,
+            draggable: true,
+            clickable: false
+          },
+          rectangleOptions:{
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+          },
+          polylineOptions: {
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+            editable: true
+          },
+          polygonOptions: {
+            strokeWeight: 5,
+            strokeColor: "#FFF",
+            strokeOpacity: 1,
+            fillOpacity: 1,
+            fillColor: "#abc"
+          }
+
+        })
+        drawingManager.setMap(map);
+
+        var coords = [
+        {lat: 34.753799388433904, lng: 135.41466141202545},
+        {lat: 34.753755313873384, lng: 135.417821054245},
+        {lat: 34.7519438290844, lng: 135.4177298591385},
+        {lat: 34.752089278235324, lng: 135.41446292855835}]
+
+        var innercoords = [{lat:34.75322200982664, lng: 135.41623318650818},
+        {lat:34.75324404725216, lng: 135.41570210912323},
+        {lat:34.75269310984991, lng: 135.41568601586914},
+        {lat:34.75268870233585, lng:135.41640484788513}]
+
+        var polygon = new google.maps.Polygon({
+          paths: [coords, innercoords],
+          strokeWeight: 5,
+          strokeColor: "#FFF",
+          strokeOpacity: 1,
+          fillOpacity: 1,
+          fillColor: "#abc",
+          map: map
+        })
+
 
   });
 })
